@@ -77,25 +77,45 @@ void autonomous() {}
 #define MOTOR_LEFT_BACK 2;
 #define MOTOR_RIGHT_FRONT 3;
 #define MOTOR_RIGHT_BACK 4;
-#define MOTOR_ELEPHANT_TRUNK 11;
-void opcontrol() {
+#define MOTOR_LEFT_EXTENSION 19;
+#define MOTOR_RIGHT_EXTENSION 20;
+bool extendState = false;
+void opcontrol() 
+{
 	pros::Controller master(CONTROLLER_MASTER); 
-	pros::Motor left_front (MOTOR_LEFT_FRONT,true);
+	pros::Motor left_front (MOTOR_LEFT_FRONT);
 	pros::Motor left_back (MOTOR_LEFT_BACK);
-	pros::Motor right_front (MOTOR_RIGHT_FRONT
-	-1=);
+	pros::Motor right_front (MOTOR_RIGHT_FRONT);
 	pros::Motor right_back (MOTOR_RIGHT_BACK);
-	pros::Motor elephant_trunk (MOTOR_ELEPHANT_TRUNK);
+	pros::Motor left_extension (MOTOR_LEFT_EXTENSION);
+	pros::Motor right_extension (MOTOR_RIGHT_EXTENSION);
 
-	while (true) {
+	while (true) 
+	{
 		left_front.move(master.get_analog(ANALOG_LEFT_Y));
 		left_back.move(master.get_analog(ANALOG_LEFT_Y));
 		right_front.move(master.get_analog(ANALOG_RIGHT_Y));
 		right_back.move(master.get_analog(ANALOG_RIGHT_Y));
-		if(master.get_digital(R2)){
-				elephant_trunk.move(127);
-		if ()
-		
+		if(DIGITAL_Y)
+		{
+			// Maybe use relative movement instead of absolute movement lmk tho
+			if (extendState)
+			{
+				/**
+				* Retracts
+				* left_extension.move_absolute(Input Double Value corresponding to retract, velocity)
+				* right_extension.move_absolute(Input Double Value corresponding to retract, velocity)
+				*/
+			}
+			else
+			{
+				/**
+				* Extends
+				* left_extension.move_absolute(Input Double Value corresponding to extend, velocity)
+				* right_extension.move_absolute(Input Double Value corresponding to extend, velocity)
+				*/
+			}
+			extendState = !extendState;
+		}
 	}
-}
 }
