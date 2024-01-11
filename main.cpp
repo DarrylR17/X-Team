@@ -77,6 +77,10 @@ void autonomous() {}
 #define MOTOR_LEFT_BACK 2;
 #define MOTOR_RIGHT_FRONT 3;
 #define MOTOR_RIGHT_BACK 4;
+// Placeholder Values
+#define MOTOR_INTAKE_TOP 16;
+#define MOTOR_INTAKE_BOTTOM 17;
+#define MOTOR_CATAPULT 18;
 #define MOTOR_LEFT_EXTENSION 19;
 #define MOTOR_RIGHT_EXTENSION 20;
 bool extendState = false;
@@ -87,6 +91,9 @@ void opcontrol()
 	pros::Motor left_back (MOTOR_LEFT_BACK);
 	pros::Motor right_front (MOTOR_RIGHT_FRONT);
 	pros::Motor right_back (MOTOR_RIGHT_BACK);
+	pros::Motor intake_top (MOTOR_INTAKE_TOP);
+	pros::Motor intake_bottom (MOTOR_INTAKE_BOTTOM);
+	pros::Motor catapult (MOTOR_CATAPULT);
 	pros::Motor left_extension (MOTOR_LEFT_EXTENSION);
 	pros::Motor right_extension (MOTOR_RIGHT_EXTENSION);
 
@@ -96,6 +103,23 @@ void opcontrol()
 		left_back.move(master.get_analog(ANALOG_LEFT_Y));
 		right_front.move(master.get_analog(ANALOG_RIGHT_Y));
 		right_back.move(master.get_analog(ANALOG_RIGHT_Y));
+		// Placeholder input
+		if(DIGITAL_L2)
+		{
+			// intake
+			// Placeholder Value for Voltage
+			// intake_top.move(127);
+			// Placeholder Value for Voltage
+			// intake_bottom.move(127);
+		}
+		// Placeholder input
+		if(DIGITAL_R2)
+		{
+			// Catapult
+			// Placeholder Value for Voltage
+			// catapult.move(127);
+		}
+		// Placeholder input
 		if(DIGITAL_Y)
 		{
 			// Maybe use relative movement instead of absolute movement lmk tho
