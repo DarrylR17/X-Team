@@ -153,5 +153,6 @@ void opcontrol()
 			}
 			extendState = !extendState;
 		}
+	pros::delay(20);
 	}
 }
