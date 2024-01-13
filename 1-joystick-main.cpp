@@ -100,11 +100,12 @@ void opcontrol()
 
 	while (true) 
 	{
-		left_front.move(master.get_analog(ANALOG_LEFT_Y));
-		left_back.move(master.get_analog(ANALOG_LEFT_Y));
-		right_front.move(master.get_analog(ANALOG_RIGHT_Y));
-		right_back.move(master.get_analog(ANALOG_RIGHT_Y));
-		// Placeholder input
+	// Add for left
+		left_front.move(master.get_analog(ANALOG_LEFT_Y) + master.get_analog(ANALOG_LEFT_X));
+		left_back.move(master.get_analog(ANALOG_LEFT_Y) + master.get_analog(ANALOG_LEFT_X));
+    // Subtract for right
+    	right_front.move(master.get_analog(ANALOG_LEFT_Y) - master.get_analog(ANALOG_LEFT_X));
+    	right_back.move(master.get_analog(ANALOG_LEFT_Y) - master.get_analog(ANALOG_LEFT_X));
 		if(master.get_digital(E_CONTROLLER_DIGITAL_L2))
 		{
 			// intake
