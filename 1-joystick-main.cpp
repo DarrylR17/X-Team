@@ -78,11 +78,11 @@ void autonomous() {}
 #define MOTOR_RIGHT_FRONT 3;
 #define MOTOR_RIGHT_BACK 4;
 // Placeholder Values
-#define MOTOR_INTAKE_TOP 16;
-#define MOTOR_INTAKE_BOTTOM 17;
-#define MOTOR_CATAPULT 18;
-#define MOTOR_LEFT_EXTENSION 19;
-#define MOTOR_RIGHT_EXTENSION 20;
+// #define MOTOR_INTAKE_TOP 16;
+// #define MOTOR_INTAKE_BOTTOM 17;
+// #define MOTOR_CATAPULT 18;
+// #define MOTOR_LEFT_EXTENSION 19;
+// #define MOTOR_RIGHT_EXTENSION 20;
 bool extendState = false;
 void opcontrol() 
 {
@@ -91,23 +91,21 @@ void opcontrol()
 	pros::Motor left_back (MOTOR_LEFT_BACK);
 	pros::Motor right_front (MOTOR_RIGHT_FRONT);
 	pros::Motor right_back (MOTOR_RIGHT_BACK);
-	pros::Motor intake_top (MOTOR_INTAKE_TOP);
-	pros::Motor intake_bottom (MOTOR_INTAKE_BOTTOM);
-	pros::Motor catapult (MOTOR_CATAPULT);
-	pros::Motor left_extension (MOTOR_LEFT_EXTENSION);
-	pros::Motor right_extension (MOTOR_RIGHT_EXTENSION);
+	// new stuff
+	// pros::Motor intake_top (MOTOR_INTAKE_TOP);
+	// pros::Motor intake_bottom (MOTOR_INTAKE_BOTTOM);
+	// pros::Motor catapult (MOTOR_CATAPULT);
+	// pros::Motor left_extension (MOTOR_LEFT_EXTENSION);
+	// pros::Motor right_extension (MOTOR_RIGHT_EXTENSION);
 
 	while (true) 
 	{
-    // Add for left
-		left_front.move(master.get_analog(ANALOG_LEFT_Y) + master.get_analog(ANALOG_LEFT_X));
-		left_back.move(master.get_analog(ANALOG_LEFT_Y) + master.get_analog(ANALOG_LEFT_X));
-
-    // Subtract for right
-    right_front.move(master.get_analog(ANALOG_LEFT_Y) - master.get_analog(ANALOG_LEFT_X));
-    right_back.move(master.get_analog(ANALOG_LEFT_Y) - master.get_analog(ANALOG_LEFT_X));
+		left_front.move(master.get_analog(ANALOG_LEFT_Y));
+		left_back.move(master.get_analog(ANALOG_LEFT_Y));
+		right_front.move(master.get_analog(ANALOG_RIGHT_Y));
+		right_back.move(master.get_analog(ANALOG_RIGHT_Y));
 		// Placeholder input
-		if(DIGITAL_L2)
+		if(master.get_digital(E_CONTROLLER_DIGITAL_L2))
 		{
 			// intake
 			// Placeholder Value for Voltage
@@ -115,15 +113,26 @@ void opcontrol()
 			// Placeholder Value for Voltage
 			// intake_bottom.move(127);
 		}
+		else
+		{
+			// stops it from moving
+			// intake_top.move(0);
+			// intake_bottom.move(0);
+		}
 		// Placeholder input
-		if(DIGITAL_R2)
+		if(master.get_digital(E_CONTROLLER_DIGITAL_R2))
 		{
 			// Catapult
 			// Placeholder Value for Voltage
 			// catapult.move(127);
+		}	
+		else
+		{
+			// stops it from moving
+			// catapult.move(0);
 		}
 		// Placeholder input
-		if(DIGITAL_Y)
+		if(master.get_digital(E_CONTROLLER_DIGITAL_Y))
 		{
 			// Maybe use relative movement instead of absolute movement lmk tho
 			if (extendState)
@@ -144,6 +153,6 @@ void opcontrol()
 			}
 			extendState = !extendState;
 		}
-	pros::delay(20);
+		pros::delay 20;
 	}
 }
