@@ -86,7 +86,7 @@ void autonomous() {}
 bool extendState = false;
 void opcontrol() 
 {
-	pros::Controller master(CONTROLLER_MASTER); 
+	pros::Controller master (CONTROLLER_MASTER); 
 	pros::Motor left_front (MOTOR_LEFT_FRONT);
 	pros::Motor left_back (MOTOR_LEFT_BACK);
 	pros::Motor right_front (MOTOR_RIGHT_FRONT);
