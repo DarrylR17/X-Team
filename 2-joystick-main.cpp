@@ -73,6 +73,7 @@ void autonomous() {}
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+// Declaring Ports
 #define MOTOR_LEFT_FRONT 1;
 #define MOTOR_LEFT_BACK 2;
 #define MOTOR_RIGHT_FRONT 3;
@@ -83,9 +84,12 @@ void autonomous() {}
 // #define MOTOR_CATAPULT 18;
 // #define MOTOR_LEFT_EXTENSION 19;
 // #define MOTOR_RIGHT_EXTENSION 20;
+// Boolean value to track if the extensions are extended
 bool extendState = false;
+// Function for operator control
 void opcontrol() 
 {
+	// Declaring Motors, Pneumatics if any, and a controller
 	pros::Controller master (CONTROLLER_MASTER); 
 	pros::Motor left_front (MOTOR_LEFT_FRONT);
 	pros::Motor left_back (MOTOR_LEFT_BACK);
@@ -100,11 +104,15 @@ void opcontrol()
 
 	while (true) 
 	{
+		// Tank Drive for the Drive Train motors (If you change Y value
+		// of left joystick it will change the left side's velocity corresponding
+		// to how far up or down you moved it, works the same for the right side)
 		left_front.move(master.get_analog(ANALOG_LEFT_Y));
 		left_back.move(master.get_analog(ANALOG_LEFT_Y));
 		right_front.move(master.get_analog(ANALOG_RIGHT_Y));
 		right_back.move(master.get_analog(ANALOG_RIGHT_Y));
-		// Placeholder input
+		// Intake function which checks if L2(placeholder input) is pressed
+		// and if so moves the intake motors
 		if(master.get_digital(E_CONTROLLER_DIGITAL_L2))
 		{
 			// intake
@@ -112,6 +120,7 @@ void opcontrol()
 			// intake_top.move(127);
 			// Placeholder Value for Voltage
 			// intake_bottom.move(127);
+			// A message on the central display which tests if the hardware is working
 			pros::lcd::set_text(3, "L2 is being pressed :D");
 		}
 		else
@@ -119,49 +128,59 @@ void opcontrol()
 			// stops it from moving
 			// intake_top.move(0);
 			// intake_bottom.move(0);
+			// Clears the line above so it's easier to check if it's working
 			pros::lcd::clear_line(3);
 		}
-		// Placeholder input
+		// Catapult function which checks if R2(placeholder input) is pressed
+		// and if so moves the catapult motor
 		if(master.get_digital(E_CONTROLLER_DIGITAL_R2))
 		{
 			// Catapult
 			// Placeholder Value for Voltage
 			// catapult.move(127);
+			// A message on the central display which tests if the hardware is working
 			pros::lcd::set_text(4, "R2 is being pressed :D");
 		}	
 		else
 		{
 			// stops it from moving
 			// catapult.move(0);
+			// Clears the line above so it's easier to check if it's working
 			pros::lcd::clear_line(4);
 		}
-		// Placeholder input
+		// Extension function which checks if Y(placeholder input) is pressed
+		// and if so retracts/extends the extension
 		if(master.get_digital(E_CONTROLLER_DIGITAL_Y))
 		{
+			// A message on the central display which tests if the hardware is working
 			pros::lcd::set_text(5, "Y is being pressed :D");
-			// Maybe use relative movement instead of absolute movement lmk tho
+			// There is a possibility in which instead of using move_absolute(motor encoder value, voltage)
+			// we can use move_relative which is similar to move_absolute, however uses relative movement
+			// Checks whether or not the extensions or extended or not if so retracts, if not extends
 			if (extendState)
 			{
 				/**
 				* Retracts
-				* left_extension.move_absolute(Input Double Value corresponding to retract, velocity)
-				* right_extension.move_absolute(Input Double Value corresponding to retract, velocity)
+				* left_extension.move_absolute(Input Double Value corresponding to retract, velocity from -127 to 127)
+				* right_extension.move_absolute(Input Double Value corresponding to retract, velocity from -127 to 127)
 				*/
 			}
 			else
 			{
 				/**
 				* Extends
-				* left_extension.move_absolute(Input Double Value corresponding to extend, velocity)
-				* right_extension.move_absolute(Input Double Value corresponding to extend, velocity)
+				* left_extension.move_absolute(Input Double Value corresponding to extend, velocity from -127 to 127)
+				* right_extension.move_absolute(Input Double Value corresponding to extend, velocity from -127 to 127)
 				*/
 			}
 			extendState = !extendState;
 		}
 		else
 		{
+			// Clears the line above so it's easier to check if it's working
 			pros::lcd::clear_line(5);
 		}
+	// Delay for the program	
 	pros::delay(20);
 	}
 }
