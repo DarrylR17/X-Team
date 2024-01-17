@@ -150,7 +150,7 @@ void opcontrol()
 		}
 		// Extension function which checks if Y(placeholder input) is pressed
 		// and if so retracts/extends the extension
-		if(master.get_digital(E_CONTROLLER_DIGITAL_Y))
+		if(master.get_digital_new_press(E_CONTROLLER_DIGITAL_Y))
 		{
 			// A message on the central display which tests if the hardware is working
 			pros::lcd::set_text(5, "Y is being pressed :D");
