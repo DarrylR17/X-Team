@@ -112,12 +112,14 @@ void opcontrol()
 			// intake_top.move(127);
 			// Placeholder Value for Voltage
 			// intake_bottom.move(127);
+			pros::lcd::set_text(3, "L2 is being pressed :D");
 		}
 		else
 		{
 			// stops it from moving
 			// intake_top.move(0);
 			// intake_bottom.move(0);
+			pros::lcd::clear_line(3);
 		}
 		// Placeholder input
 		if(master.get_digital(E_CONTROLLER_DIGITAL_R2))
@@ -125,15 +127,18 @@ void opcontrol()
 			// Catapult
 			// Placeholder Value for Voltage
 			// catapult.move(127);
+			pros::lcd::set_text(4, "R2 is being pressed :D");
 		}	
 		else
 		{
 			// stops it from moving
 			// catapult.move(0);
+			pros::lcd::clear_line(4);
 		}
 		// Placeholder input
 		if(master.get_digital(E_CONTROLLER_DIGITAL_Y))
 		{
+			pros::lcd::set_text(5, "Y is being pressed :D");
 			// Maybe use relative movement instead of absolute movement lmk tho
 			if (extendState)
 			{
@@ -152,6 +157,10 @@ void opcontrol()
 				*/
 			}
 			extendState = !extendState;
+		}
+		else
+		{
+			pros::lcd::clear_line(5);
 		}
 	pros::delay(20);
 	}
